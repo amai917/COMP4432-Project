@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Blog</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>Welcome to the Blog</h1>
+            <p>Share anything!</p>
+        </div>
+        <div id="create-post">
+            <h2>Create a New Post</h2>
+            <form method="post">
+                <textarea name="message" placeholder="What do you want to post about?"></textarea>
+                <button type="submit" class="submit-button">Post</button>
+            </form>
+        </div>
+        <div id="blog-posts">
+            <h2>Posts</h2>
+            {% for message in messages %}
+                <div class="blog-post">
+                    <p>{{ message.content }}</p>
+                    <p class="blog-post-meta">Posted by Blogger on {{ message.date }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!--Pop up window to work had help online with this one-->
+    <script>
+        window.onload = function() {
+            var xssDetected = {{ xss_detected | tojson }};
+            if (xssDetected) {
+                alert('XSS Attack Detected!');
+            }
+        };
+    </script>
+</body>
+</html>
